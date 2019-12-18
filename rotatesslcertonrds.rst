@@ -87,4 +87,4 @@ We encourage you to test the steps listed here in a development or staging envir
 
 
 .. _here: https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL-certificate-rotation.html
-.. _sslcertinfo://https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html
+.. _sslcertinfo: https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html
