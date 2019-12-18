@@ -24,17 +24,16 @@ Validate “Certificate authority version” for given individual instance using
 
 node with rds-ca-2015:
 
-.. code::
 
-aws rds describe-db-instances --db-instance-identifier  <instance_name> | grep CACertificateIdentifier
-"CACertificateIdentifier": "rds-ca-2015",
+
+``aws rds describe-db-instances --db-instance-identifier  <instance_name> | grep CACertificateIdentifier
+"CACertificateIdentifier": "rds-ca-2015",``
 
 node with rds-ca-2019:
 
-.. code::
 
-aws rds describe-db-instances --db-instance-identifier  <instance_name> | grep CACertificateIdentifier
-"CACertificateIdentifier": "rds-ca-2019",
+``aws rds describe-db-instances --db-instance-identifier  <instance_name> | grep CACertificateIdentifier
+"CACertificateIdentifier": "rds-ca-2019",``
 
 If current version of CA certificate is rds-ca-2015 version, it must be upgraded to rds-ca-2019 version before March 05 2020.
 
