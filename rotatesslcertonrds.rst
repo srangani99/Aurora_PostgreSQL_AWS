@@ -1,6 +1,6 @@
 Rotate TLS/SSL Certificate on RDS/Aurora
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-AWS provides CA certificates for connecting to RDS instance using SSL/TLS. If you application connects to SSL or TLS layer you must follow below steps before current certificate expires.
+AWS provides CA certificates for connecting to RDS instance using SSL/TLS. If your application connects to SSL or TLS layer you must follow below steps before current certificate expires.
 
 Source material for this guide can be found `here`_.
 
@@ -12,7 +12,7 @@ Search code repository and connection string to validate which client .pem versi
 * rds-ca-2019-root.pem
 * rds-combined-ca-bundle.pem
 
-It is advisable to search using *.pem. Based on findings you will know what version of client certificate is used.
+It is advisable to search code repository using *.pem. Based on findings you will know what version of client certificate is used.
 
 If ``rds-combined-ca-bundle.pem`` is used, you can avoid or reduce outage compare to using specific root cert or intermediate cert. The certificate bundle contains certificates for both the old and new CA, so you can upgrade your application safely and maintain connectivity during the transition period. If you are using ``rds-ca-2015-root.pem`` or ``rds-ca-2019-root.pem`` or any other intermediate certificates, it is strongly recommanded that you upgrade your client certificates to ``rds-combined-ca-bundle.pem``.
 More information on SSL/TLS client side certificates can be found `sslcertinfo`_.
@@ -22,14 +22,14 @@ More information on SSL/TLS client side certificates can be found `sslcertinfo`_
 
 Validate “Certificate authority version” for given individual instance using AWS CLI or AWS console.
 
-node with rds-ca-2015:
+Node with rds-ca-2015:
 
 
 
 ``aws rds describe-db-instances --db-instance-identifier  <instance_name> | grep CACertificateIdentifier
 "CACertificateIdentifier": "rds-ca-2015",``
 
-node with rds-ca-2019:
+Node with rds-ca-2019:
 
 
 ``aws rds describe-db-instances --db-instance-identifier  <instance_name> | grep CACertificateIdentifier
@@ -43,25 +43,22 @@ If current version of CA certificate is rds-ca-2015 version, it must be upgraded
 
 RDS Instance will reboot as part of TLS/SSL cert rotation. It is advisable to perform cert upgrade in reader instance first. If your cluster is with multiple reader nodes, take one reader node at time using below steps:
 
-In the navigation pane, choose Databases, and then choose the DB instance that you want to modify.
-Choose Modify.
+In the navigation pane, choose **Databases**, and then choose the DB instance that you want to modify.
+Choose **Modify**.
 
 The Modify DB Instance page appears.
 
 In the Network & Security section, choose ``rds-ca-2019``.
 
 Choose Continue and check the summary of modifications.
-To apply the changes immediately, choose Apply immediately.
+To apply the changes immediately, choose **Apply immediately**.
 Choosing this option causes an outage/reboot of this specific instance.
-Click on modify db instance.
+Click on **Modify** db instance.
 It takes around 1 minute on average for RDS instance to reboot. Watch for reader traffic and other statistics on this reader instance using various monitoring tools you normally use.
-
-wait for traffic is fully balanced between all reader instances.
-
-follow same steps for all reader instances.
+Wait for traffic is fully balanced between all reader instances.
+Follow same steps for all reader instances.
 
 Validate “Certificate authority version” for given individual instance using AWS CLI or AWS console. it should show ``rds-ca-2019`` version.
-
 
 
 ``aws rds describe-db-instances --db-instance-identifier  <instance_name> | grep CACertificateIdentifier
@@ -76,7 +73,7 @@ Watch for writer traffic and other statistics on new writer instance using vario
 
 
 **Step 4:** SSL/TLS rotation in last reader instance
-follow steps described in step 2 to perform SSL/TLS rotation and perform validation.
+Follow steps described in step 2 to perform SSL/TLS rotation and perform validation.
 
 
 
