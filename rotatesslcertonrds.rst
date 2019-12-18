@@ -48,7 +48,7 @@ Choose Modify.
 
 The Modify DB Instance page appears.
 
-In the Network & Security section, choose rds-ca-2019.
+In the Network & Security section, choose ``rds-ca-2019``.
 
 Choose Continue and check the summary of modifications.
 To apply the changes immediately, choose Apply immediately.
@@ -62,11 +62,10 @@ follow same steps for all reader instances.
 
 Validate “Certificate authority version” for given individual instance using AWS CLI or AWS console. it should show ``rds-ca-2019`` version.
 
-.. code::
 
 
-aws rds describe-db-instances --db-instance-identifier  <instance_name> | grep CACertificateIdentifier
-"CACertificateIdentifier": "rds-ca-2019",
+``aws rds describe-db-instances --db-instance-identifier  <instance_name> | grep CACertificateIdentifier
+"CACertificateIdentifier": "rds-ca-2019",``
 
 
 **Step 3:** Perform failover and choose new writer
